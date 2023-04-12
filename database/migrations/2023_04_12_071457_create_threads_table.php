@@ -8,12 +8,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('threads', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid('id');
             $table->foreignUuid('user_id');
             $table->string('title');
             $table->text('content');
             $table->string('slug');
-            $table->integer('locked');
+            $table->boolean('locked');
             $table->timestamps();
         });
     }

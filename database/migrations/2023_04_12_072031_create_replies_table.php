@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('replies', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid('id');
             $table->foreignUuid('user_id');
             $table->foreignUuid('thread_id');
             $table->string('content');
