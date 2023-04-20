@@ -63,4 +63,9 @@ class ThreadPolicy
     {
         //
     }
+
+    public function viewUser(?User $user): bool
+    {
+        return true;
+    }
 }

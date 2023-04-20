@@ -28,6 +28,14 @@ it('fetches a single thread resource', function () {
             'createdAt' => $thread->created_at,
             'updatedAt' => $thread->updated_at,
         ],
+        'relationships' => [
+            'user' => [
+                'links' => [
+                    'self' => "{$self}/relationships/user",
+                    'related' => "{$self}/user",
+                ],
+            ],
+        ],
         'links' => [
             'self' => $self,
         ]

@@ -33,6 +33,7 @@ class Server extends BaseServer
     {
         return [
             Threads\ThreadSchema::class,
+            Users\UserSchema::class,
         ];
     }
 }
