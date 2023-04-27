@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('title');
             $table->text('content');
             $table->string('slug');
-            $table->boolean('locked');
+            $table->boolean('locked')->default(0);
             $table->timestamps();
         });
     }

@@ -16,6 +16,8 @@ class Thread extends Model
         'locked' => 'boolean',
     ];
 
+    protected $fillable = ['title', 'content', 'slug', 'locked'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -23,7 +23,6 @@ JsonApiRoute::server('v1')
     ->resources(function (ResourceRegistrar $server) {
         $server->resource('users', JsonApiController::class)->readOnly();
         $server->resource('threads', JsonApiController::class)
-            ->readOnly()
             ->relationships(function (Relationships $relations) {
                 $relations->hasOne('user')->readOnly();
             });

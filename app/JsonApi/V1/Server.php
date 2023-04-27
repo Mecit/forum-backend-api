@@ -2,6 +2,7 @@
 
 namespace App\JsonApi\V1;
 
+use App\Models\Thread;
 use LaravelJsonApi\Core\Server\Server as BaseServer;
 
 class Server extends BaseServer
@@ -21,7 +22,19 @@ class Server extends BaseServer
      */
     public function serving(): void
     {
-        // no-op
+        auth()->shouldUse('sanctum');
+
+        Thread::creating(function (Thread $thread) {
+            $thread->user()->associate(auth()->user());
+        });
+
+        Thread::saving(function (Thread $thread) {
+            $slug = str($thread->title)->slug();
+
+            $count = $thread->whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+
+            $thread->slug = $count > 0 ? "{$slug}-{$count}" : $slug;
+        });
     }
 
     /**
