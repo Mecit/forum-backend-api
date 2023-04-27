@@ -37,7 +37,7 @@ class ThreadPolicy
      */
     public function update(User $user, Thread $thread): bool
     {
-        //
+        return true;
     }
 
     /**

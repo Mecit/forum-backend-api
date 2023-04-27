@@ -3,6 +3,7 @@
 namespace App\JsonApi\V1;
 
 use App\Models\Thread;
+use Illuminate\Support\Str;
 use LaravelJsonApi\Core\Server\Server as BaseServer;
 
 class Server extends BaseServer
@@ -29,11 +30,7 @@ class Server extends BaseServer
         });
 
         Thread::saving(function (Thread $thread) {
-            $slug = str($thread->title)->slug();
-
-            $count = $thread->whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-
-            $thread->slug = $count > 0 ? "{$slug}-{$count}" : $slug;
+            $thread->slug = str($thread->title)->slug() . '-' . Str::lower(Str::random(8));
         });
     }
 

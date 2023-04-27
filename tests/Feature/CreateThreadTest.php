@@ -8,8 +8,6 @@ beforeEach(function () {
        'attributes' => [
            'title' => $this->thread->title,
            'content' => $this->thread->content,
-           'slug' => $this->thread->slug,
-           'locked' => false,
        ],
    ];
 });
@@ -40,5 +38,11 @@ test('authenticated users can create threads', function () {
         'http://forum-api.test/api/v1/threads',
         $this->data
     );
-})->skip();
+
+    $this->assertDatabaseHas('threads', [
+        'title' => $this->thread->title,
+        'content' => $this->thread->content,
+        'user_id' => $this->thread->user_id,
+    ]);
+});
 
