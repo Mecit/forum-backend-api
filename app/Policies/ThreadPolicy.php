@@ -68,4 +68,9 @@ class ThreadPolicy
     {
         return true;
     }
+
+    public function lock(User $user, Thread $thread): bool
+    {
+        return $user->isAdmin();
+    }
 }

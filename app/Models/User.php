@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reply::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->email === 'admin@acme.com';
+    }
 }
