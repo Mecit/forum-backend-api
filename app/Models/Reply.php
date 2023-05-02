@@ -10,6 +10,8 @@ class Reply extends Model
 {
     use HasUuids;
 
+    protected $fillable = ['content', 'thread_id'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

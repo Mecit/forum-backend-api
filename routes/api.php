@@ -22,12 +22,24 @@ use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 JsonApiRoute::server('v1')
     ->prefix('v1')
     ->resources(function (ResourceRegistrar $server) {
-        $server->resource('users', JsonApiController::class)->readOnly();
-        $server->resource('threads', ThreadController::class)
+        $server
+            ->resource('users', JsonApiController::class)
+            ->readOnly();
+
+        $server
+            ->resource('threads', ThreadController::class)
             ->relationships(function (Relationships $relations) {
                 $relations->hasOne('user')->readOnly();
+                $relations->hasMany('replies')->readOnly();
             })
             ->actions('-actions', function ($actions) {
                 $actions->withId()->post('lock', 'switchLock');
+            });
+
+        $server
+            ->resource('replies', JsonApiController::class)
+            ->relationships(function (Relationships $relations) {
+                $relations->hasOne('user')->readOnly();
+                $relations->hasOne('thread')->readOnly();
             });
     });

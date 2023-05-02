@@ -2,6 +2,7 @@
 
 namespace App\JsonApi\V1;
 
+use App\Models\Reply;
 use App\Models\Thread;
 use Illuminate\Support\Str;
 use LaravelJsonApi\Core\Server\Server as BaseServer;
@@ -29,6 +30,10 @@ class Server extends BaseServer
             $thread->user()->associate(auth()->user());
         });
 
+        Reply::creating(function (Reply $reply) {
+            $reply->user()->associate(auth()->user());
+        });
+
         Thread::saving(function (Thread $thread) {
             $thread->slug = str($thread->title)->slug() . '-' . Str::lower(Str::random(8));
         });
@@ -42,8 +47,9 @@ class Server extends BaseServer
     protected function allSchemas(): array
     {
         return [
-            Threads\ThreadSchema::class,
             Users\UserSchema::class,
+            Threads\ThreadSchema::class,
+            Replies\ReplySchema::class,
         ];
     }
 }
