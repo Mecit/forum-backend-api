@@ -23,6 +23,13 @@ class ReplySchema extends Schema
     public static string $model = Reply::class;
 
     /**
+     * Force default pagination to ensure the server always returns paginated data.
+     *
+     * @var array|null
+     */
+    protected ?array $defaultPagination = ['number' => 1];
+
+    /**
      * Get the resource fields.
      *
      * @return array
